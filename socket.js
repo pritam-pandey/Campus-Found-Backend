@@ -9,7 +9,8 @@ const User = require('./models/User');
 const initSocket = (httpServer) => {
   const origins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
     .split(',')
-    .map((o) => o.trim());
+    .map((o) => o.trim().replace(/\/+$/, '')) // tolerate trailing slashes in env values
+    .filter(Boolean);
 
   const io = new Server(httpServer, {
     cors: { origin: origins, credentials: true },
