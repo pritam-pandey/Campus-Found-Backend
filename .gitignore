@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# environment — never commit secrets (MongoDB URI, JWT secret)
+.env
+.env.local
+.env.*.local
+
+# user uploads — content stays on the server / cloud storage, not in git
+uploads/*
+!uploads/.gitkeep
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
