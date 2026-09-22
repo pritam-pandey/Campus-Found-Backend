@@ -58,9 +58,9 @@ const check = (name, cond, extra = '') => {
 /*  Test data — walletLost/walletFound are near-identical so the       */
 /*  match engine must flag them; the phone item must NOT match.        */
 /* ------------------------------------------------------------------ */
-const A = { fullName: 'Ava Student', email: 'ava@campus.edu', mobile: '+8801700000001', studentId: 'S-001', department: 'CSE', semester: '3rd', password: 'secret123', confirmPassword: 'secret123' };
-const B = { fullName: 'Ben Student', email: 'ben@campus.edu', mobile: '+8801700000002', studentId: 'S-002', department: 'EEE', semester: '5th', password: 'secret123', confirmPassword: 'secret123' };
-const EVE = { fullName: 'Eve Snoop', email: 'eve@campus.edu', mobile: '+8801700000009', studentId: 'S-009', department: 'LAW', semester: '1st', password: 'secret123', confirmPassword: 'secret123' };
+const A = { fullName: 'Ava Student', email: 'ava.student@gmail.com', mobile: '+8801700000001', studentId: 'S-001', department: 'CSE', semester: '3rd', password: 'secret123', confirmPassword: 'secret123' };
+const B = { fullName: 'Ben Student', email: 'ben.student@gmail.com', mobile: '+8801700000002', studentId: 'S-002', department: 'EEE', semester: '5th', password: 'secret123', confirmPassword: 'secret123' };
+const EVE = { fullName: 'Eve Snoop', email: 'eve.snoop@gmail.com', mobile: '+8801700000009', studentId: 'S-009', department: 'LAW', semester: '1st', password: 'secret123', confirmPassword: 'secret123' };
 
 const walletLost = { itemName: 'Black Leather Wallet', category: 'Wallet', description: 'Black leather wallet with three card slots', color: 'black', brand: 'Levis', location: 'Library 2nd floor', date: '2026-09-10', time: '14:30' };
 const walletFound = { itemName: 'Black Leather Wallet', category: 'Wallet', description: 'Black leather wallet with card slots', color: 'black', brand: 'Levis', location: 'Library 2nd floor', date: '2026-09-10', time: '15:00' };
@@ -87,6 +87,10 @@ const run = async () => {
   check('duplicate mobile rejected 409', r.status === 409);
   r = await request('POST', '/api/auth/register', { body: { ...B, email: A.email } });
   check('duplicate email rejected 409', r.status === 409);
+  r = await request('POST', '/api/auth/register', { body: { ...B, email: 'ben@campus.edu' } });
+  check('non-Gmail email rejected 400', r.status === 400);
+  r = await request('POST', '/api/auth/register', { body: { ...B, email: 'ben..student@gmail.com' } });
+  check('malformed Gmail (consecutive dots) rejected 400', r.status === 400);
   r = await request('POST', '/api/auth/register', { body: B });
   check('register B ok', r.status === 201);
   tokenB = r.data.token;

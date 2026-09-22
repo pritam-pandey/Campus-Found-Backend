@@ -26,7 +26,9 @@ exports.register = asyncHandler(async (req, res) => {
 
   const errors = {};
   if (!fullName || !fullName.trim()) errors.fullName = 'Full name is required';
-  if (!email || !/^\S+@\S+\.\S+$/.test(email)) errors.email = 'A valid email is required';
+  if (!email || !/^(?!.*\.\.)[A-Za-z0-9](?:[A-Za-z0-9._%+-]*[A-Za-z0-9])?@gmail\.com$/.test(email)) {
+    errors.email = 'Only a valid Gmail address (@gmail.com) is allowed';
+  }
   if (!mobile || !/^\+?[0-9]{7,15}$/.test(mobile)) errors.mobile = 'A valid mobile number (7-15 digits) is required';
   if (!studentId || !String(studentId).trim()) errors.studentId = 'Student ID is required';
   if (!department || !department.trim()) errors.department = 'Department is required';

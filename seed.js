@@ -33,7 +33,7 @@ const run = async () => {
   const users = await User.create([
     {
       fullName: 'Campus Admin',
-      email: 'admin@campusfound.edu',
+      email: 'admin.campusfound@gmail.com',
       mobile: '+8801700000001',
       studentId: 'ADMIN001',
       department: 'Administration',
@@ -43,7 +43,7 @@ const run = async () => {
     },
     {
       fullName: 'Rahul Ahmed',
-      email: 'rahul@campusfound.edu',
+      email: 'rahul.campusfound@gmail.com',
       mobile: '+8801700000002',
       studentId: 'CSE2101',
       department: 'CSE',
@@ -52,7 +52,7 @@ const run = async () => {
     },
     {
       fullName: 'Nusrat Jahan',
-      email: 'nusrat@campusfound.edu',
+      email: 'nusrat.campusfound@gmail.com',
       mobile: '+8801700000003',
       studentId: 'BBA2204',
       department: 'BBA',
